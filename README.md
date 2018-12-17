@@ -2,7 +2,7 @@
 Watch and grab special offers! 
 
 # Getting Started
-This projcet is built using MVVM artitechtural pattern.
+This projcet is built using MVVM artitechtural pattern using Kotlin and RxJava. 
 For downloading data from API's, uses retrofit2 REST client which uses OkHttp library for Http requests and using GSON convertor for data serialization.
 
 # Prerequisites
