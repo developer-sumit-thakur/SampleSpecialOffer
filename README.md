@@ -14,5 +14,5 @@ Clone project locally using repo url(https://github.com/developer-sumit-thakur/S
 This project is build Android Studio 3.0 and requried minSdkVersion 14.
 
 
-#Author
+# Author
 Sumit Thakur
