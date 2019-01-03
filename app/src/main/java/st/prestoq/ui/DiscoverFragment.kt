@@ -50,7 +50,7 @@ class DiscoverFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.special_list)
         recyclerView.setHasFixedSize(true)
-        mLayoutManager = LinearLayoutManager(activity)
+        mLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         recyclerView.setLayoutManager(mLayoutManager)
 
         adapter = ListItemsAdapter(ArrayList())
@@ -83,7 +83,7 @@ class DiscoverFragment : Fragment() {
         fragmentListener?.onSuccess()
 
         result.managerSpecials?.apply {
-            adapter?.setSpecials(this)
+            adapter?.setSpecials(result.canvasUnit, this)
         }
     }
 }

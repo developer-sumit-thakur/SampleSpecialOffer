@@ -1,6 +1,9 @@
 package st.prestoq.adapter
 
+import android.app.Activity
+import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +15,7 @@ import st.prestoq.viewmodel.model.ManagerSpecial
 
 
 class ListItemsAdapter(private var managerSpecials: List<ManagerSpecial>) : RecyclerView.Adapter<ListItemsAdapter.ViewHolder>() {
+    var canvasUnit: Int = 1
 
     override fun getItemCount(): Int {
         return if (managerSpecials != null) {
@@ -33,8 +37,9 @@ class ListItemsAdapter(private var managerSpecials: List<ManagerSpecial>) : Recy
         }
     }
 
-    fun setSpecials(items: List<ManagerSpecial>) {
+    fun setSpecials(unit: Int?, items: List<ManagerSpecial>) {
         this.managerSpecials = items
+        unit?.apply { canvasUnit = this }
         notifyDataSetChanged()
     }
 
@@ -44,12 +49,25 @@ class ListItemsAdapter(private var managerSpecials: List<ManagerSpecial>) : Recy
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        setWidhtAndHeight(holder.itemView, managerSpecials[position].width, managerSpecials[position].height)
         with(managerSpecials[position]) {
-            holder.name.setText(displayName)
-            holder.originalPrice.setText(originalPrice)
-            holder.price.setText(price)
+            holder.name.setText(display_name)
+            holder.originalPrice.setText("$" + original_price)
+            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
+            holder.price.setText("$" + price)
             Glide.with(holder.itemView.context).load(imageUrl).into(holder.itemImage);
         }
+    }
 
+    private fun setWidhtAndHeight(itemView: View, widthUnit: Int?, heightUnit: Int?) {
+        itemView.layoutParams
+        val displaymetrics = DisplayMetrics()
+        (itemView.context as Activity).windowManager.defaultDisplay.getMetrics(displaymetrics)
+        val perUnitSize = displaymetrics.widthPixels / canvasUnit
+
+        //val itemWidth = perUnitSize *
+
+        widthUnit?.apply { itemView.getLayoutParams().width = this * perUnitSize }
+        heightUnit?.apply { itemView.getLayoutParams().height = this * perUnitSize }
     }
 }
