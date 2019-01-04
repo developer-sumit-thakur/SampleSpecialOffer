@@ -2,6 +2,9 @@ package st.prestoq.viewmodel.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
+/**
+ * @author sumit.T
+ * */
 class ManagerSpecial {
     @JsonProperty("display_name")
     val display_name: String? = null

@@ -11,6 +11,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import st.prestoq.viewmodel.model.ApiResponse
 
+/**
+ * @author sumit.T
+ * */
 class ApiService {
     interface ResponseListener {
         fun onSuccess(respones: ApiResponse)

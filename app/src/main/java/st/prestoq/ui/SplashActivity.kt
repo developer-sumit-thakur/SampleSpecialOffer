@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import st.prestoq.R
 
+/**
+ * @author sumit.T
+ * */
 class SplashActivity : AppCompatActivity() {
 
     lateinit var mSplashView: View

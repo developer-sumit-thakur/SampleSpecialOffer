@@ -6,6 +6,9 @@ import android.util.Log
 import com.google.gson.Gson
 import st.prestoq.api.ApiService
 
+/**
+ * @author sumit.T
+ * */
 class SpecialsViewModel : ViewModel() {
 
     companion object {

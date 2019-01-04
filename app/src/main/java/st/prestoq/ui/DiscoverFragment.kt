@@ -5,17 +5,22 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import st.prestoq.R
 import st.prestoq.adapter.ListItemsAdapter
 import st.prestoq.viewmodel.model.ApiResponse
 import st.prestoq.viewmodel.model.SpecialsViewModel
 
+/**
+ * @author sumit.T
+ * */
 class DiscoverFragment : Fragment() {
     companion object {
         val TAG: String = "DiscoverFragment"
@@ -23,8 +28,6 @@ class DiscoverFragment : Fragment() {
 
     lateinit var adapter: ListItemsAdapter
     lateinit var recyclerView: RecyclerView
-    private var mLayoutManager: RecyclerView.LayoutManager? = null
-
     var specialsViewModel: SpecialsViewModel? = null
     var fragmentListener: FragmentListener? = null
 
@@ -50,8 +53,11 @@ class DiscoverFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.special_list)
         recyclerView.setHasFixedSize(true)
-        mLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        recyclerView.setLayoutManager(mLayoutManager)
+
+        val layoutManager = FlexboxLayoutManager(context)
+        layoutManager.flexDirection = FlexDirection.ROW
+        layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
+        recyclerView.layoutManager = layoutManager
 
         adapter = ListItemsAdapter(ArrayList())
         recyclerView.setAdapter(adapter)
@@ -65,7 +71,6 @@ class DiscoverFragment : Fragment() {
         specialsViewModel?.responseLiveData?.observe(this, Observer {
             it?.apply { showUI(it) } ?: showError()
         })
-
     }
 
     override fun onDetach() {

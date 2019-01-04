@@ -8,6 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import st.prestoq.R
 
+/**
+ * @author sumit.T
+ * */
 class MainActivity : AppCompatActivity() {
 
     lateinit var errorText: TextView

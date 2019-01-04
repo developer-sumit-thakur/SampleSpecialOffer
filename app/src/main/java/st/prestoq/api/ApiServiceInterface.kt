@@ -5,6 +5,9 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 import st.prestoq.viewmodel.model.ApiResponse
 
+/**
+ * @author sumit.T
+ * */
 interface ApiServiceInterface {
     @GET
     fun getManagerSpecials(@Url url: String): Observable<ApiResponse>
