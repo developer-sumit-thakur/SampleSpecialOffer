@@ -4,16 +4,22 @@ import android.app.Activity
 import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.google.android.flexbox.AlignSelf
+import com.google.android.flexbox.FlexboxLayoutManager
 import st.prestoq.R
 import st.prestoq.viewmodel.model.ManagerSpecial
 
 
+/**
+ * @author sumit.T
+ * */
 class ListItemsAdapter(private var managerSpecials: List<ManagerSpecial>) : RecyclerView.Adapter<ListItemsAdapter.ViewHolder>() {
     var canvasUnit: Int = 1
 
@@ -49,6 +55,8 @@ class ListItemsAdapter(private var managerSpecials: List<ManagerSpecial>) : Recy
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val params = holder.itemView.layoutParams as RecyclerView.LayoutParams
+        params.bottomMargin = 20
         setWidhtAndHeight(holder.itemView, managerSpecials[position].width, managerSpecials[position].height)
         with(managerSpecials[position]) {
             holder.name.setText(display_name)
@@ -60,14 +68,17 @@ class ListItemsAdapter(private var managerSpecials: List<ManagerSpecial>) : Recy
     }
 
     private fun setWidhtAndHeight(itemView: View, widthUnit: Int?, heightUnit: Int?) {
-        itemView.layoutParams
         val displaymetrics = DisplayMetrics()
         (itemView.context as Activity).windowManager.defaultDisplay.getMetrics(displaymetrics)
         val perUnitSize = displaymetrics.widthPixels / canvasUnit
-
-        //val itemWidth = perUnitSize *
-
         widthUnit?.apply { itemView.getLayoutParams().width = this * perUnitSize }
-        heightUnit?.apply { itemView.getLayoutParams().height = this * perUnitSize }
+        heightUnit?.apply { itemView.getLayoutParams().height = (this * perUnitSize) + perUnitSize }
+        Log.d(ListItemsAdapter::class.java.name, "widhtUnit $widthUnit, heighUnit $heightUnit, perUnitSize $perUnitSize")
+
+        val flexboxLp = itemView.layoutParams
+        if (flexboxLp is FlexboxLayoutManager.LayoutParams) {
+            flexboxLp.flexGrow = 1.0f
+            flexboxLp.alignSelf = AlignSelf.FLEX_START
+        }
     }
 }
